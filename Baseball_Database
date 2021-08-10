@@ -1,0 +1,22 @@
+Question 1 - "Heaviest Hitters"
+Querying for the team with the highest average weight on each year
+My solution (Not Finish):
+
+WITH 
+	temp
+ AS(
+  SELECT 
+		batting.yearid AS year,
+		ROUND(AVG(people.weight),0) AS team_avg_weight,
+  	teams.name AS team_name
+	FROM
+		people
+	JOIN batting ON people.playerid = batting.playerid
+	JOIN teams ON batting.teamid = teams.teamid
+	GROUP BY 1,3
+	ORDER BY 1
+   )
+SELECT temp.year, MAX(temp.team_avg_weight)
+FROM temp
+GROUP BY year
+
